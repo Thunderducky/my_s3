@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>This is my file upload page</title>
+</head>
+<body>
+  <form id="fileUploadForm">
+    <input type="file" id="myFile">
+    <input type="submit" id="submit-file">
+  </form>
+  <script type="text/javascript">
+    const $ = q => document.querySelector(q);
+    console.log("this should work!");
+    $("#fileUploadForm").onsubmit = function(e){
+      e.preventDefault();
+
+      const file = $("#myFile").files[0];
+      console.log(file);
+      const data = new FormData();
+      data.append("file", file);
+      console.log(data);
+
+      fetch('http://localhost:3000/upload', {
+        method: "POST",
+        body: data
+      }).then(response => console.log(response));
+    }
+  </script>
+</body>
+</html>
